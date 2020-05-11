@@ -1,0 +1,12 @@
+.tasks-container {
+    width: 95%;
+    height: 350px;
+    border: 1px solid grey;
+    border-radius: 3px;
+    display: block;
+    margin: 0px auto;
+    margin-top: 30px;
+    overflow-y: scroll;
+    background-color: white;
+    padding: 8px;
+}

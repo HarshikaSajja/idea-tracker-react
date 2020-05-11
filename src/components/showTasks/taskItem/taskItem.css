@@ -1,0 +1,33 @@
+.task-item {
+    height: 70px;
+    width: 100%;
+    border: 1px #ccc solid;
+    border-radius: 10px;
+    margin-bottom: 3px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.edit-button {
+    float: right;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #86B7B9;
+    margin-right: 5px;
+}
+
+.delete-button {
+    float: right;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #86B7B9;
+    margin-right: 5px;
+}
+
+.timestamp {
+    font-size: 13px;
+}
+
+.taskname {
+    font-weight: bold;
+}

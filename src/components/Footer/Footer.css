@@ -1,0 +1,15 @@
+.footer {
+    background-color: #38787A;
+    color: white;
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    height: 30px;
+    padding: 5px;
+    box-sizing: border-box;
+    padding: 5px 30px;
+}
+
+.email {
+    float: right;
+}

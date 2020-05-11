@@ -1,0 +1,32 @@
+.navbar {
+    width: 100vw;
+    height: 60px;
+    background-color: #38787A;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.app-title {
+    color: white;
+    text-align: left;
+    margin-left: 10px;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.navbar-buttons {
+    float: right;
+    font-size: 16px;
+    background-color: #38787A;
+    color: white;
+    border: none;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.navbar-buttons:hover {
+    background-color: rgba(93, 56, 122, 0.3);
+    height: 100%;
+    margin-top: 2px;
+}
