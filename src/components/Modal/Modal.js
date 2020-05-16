@@ -25,15 +25,15 @@ const style = {
 
 class Modal extends React.Component {
     state = {
-        timeStamp: '',
+        // timeStamp: '',
         taskName: ''
     }
 
     onChangeHandler = (event) => {
-        const dateTime = this.props.getDateTime
+        // const dateTime = this.props.getDateTime
         this.setState({
             [event.target.name]: event.target.value,
-            timeStamp: dateTime,
+            // timeStamp: dateTime,
         })
     }
 
@@ -56,7 +56,8 @@ class Modal extends React.Component {
                         onChange={this.onChangeHandler}></input>
                     
                     <DialogActions>
-                        <Button onClick={() => this.props.onSaveHandler(this.state.taskName, this.state.timeStamp)} variant="contained"  className={classes.upload}>
+                        {/* <Button onClick={() => this.props.onSaveHandler(this.state.taskName, this.state.timeStamp)} variant="contained"  className={classes.upload}> */}
+                        <Button onClick={() => this.props.onSaveHandler(this.state.taskName)} variant="contained"  className={classes.upload}>
                             save
                         </Button>
                         <Button onClick={closeModal} variant="contained" className={classes.discard}>

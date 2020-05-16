@@ -1,12 +1,61 @@
 .tasks-container {
     width: 95%;
-    height: 350px;
+    /* height: 350px; */
     border: 1px solid grey;
     border-radius: 3px;
     display: block;
-    margin: 0px auto;
+    margin-left: 2%;
     margin-top: 30px;
-    overflow-y: scroll;
     background-color: white;
     padding: 8px;
+    margin-bottom: 2%;
+}
+
+.task-nav {
+    background-color: #DFF0F0;
+    background-color: #86B7B9;
+    height: 15%;
+    margin: 5px auto;
+    border-radius: 8px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    justify-content: space-evenly;
+}
+
+.task-list {
+    /* overflow-y: scroll; */
+    /* height: 270px; */
+    height: auto;
+}
+
+.search-box {
+    height: 100%;
+    width: 20%;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    float: right;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.dropdown-boxes {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 13%;
+    height: 100%;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 15px;
+    margin-right: 2%;
+}
+
+.page-numbers,
+.active-page {
+    margin-right: 10px;
+    padding: 5px;
+    
+    border-radius: 15px;
+}
+
+.active-page {
+    background-color: hotpink;
 }

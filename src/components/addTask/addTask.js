@@ -1,14 +1,15 @@
 import React from 'react'
 import './addTask.css'
-import axios from 'axios'
-import ShowTasks from '../showTasks/showTasks'
-
+import NavBar from '../NavBar/NavBar'
+import LoginAlert from '../Modal/LoginAlert'
+import { connect } from 'react-redux';
+import { getAllTasks, createNewTask } from '../../actions'
 
 const getDateTime = () => {
-    var today = new Date();
-    var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-    var time = today.getHours() + ":" + today.getMinutes()
-    var dateTime = date+'  '+time;
+    let today = new Date();
+    let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+    let time = today.getHours() + ":" + today.getMinutes()
+    let dateTime = date+'  '+time;
     return dateTime
   }
 
@@ -19,16 +20,6 @@ class AddTask extends React.Component {
         error: '',
         updatedPostData: [],
         allTasks: [],
-
-    }
-
-    componentDidMount() {
-        axios.get('http://localhost:8000/tasks')
-            .then(response => {
-                this.setState({
-                    allTasks: response.data
-                })
-            })
     }
 
     onChangeHandler = (event) => {
@@ -51,18 +42,12 @@ class AddTask extends React.Component {
         if(this.isFieldValid()) {
             const body = {
                 taskName: this.state.taskName,
-                timeStamp: this.state.timeStamp
+                timeStamp: this.state.timeStamp,
+                likes: 0,
+                createdBy: this.props.loggedInUser
             }
-
-            axios.post('http://localhost:8000/tasks', body)
-                .then(response => {
-                    axios.get('http://localhost:8000/tasks')
-                        .then(response => {
-                            this.setState({
-                                allTasks: response.data
-                            })
-                        })
-                })
+            this.props.createNewTask(body)
+                .then(() => this.props.history.push('/home'))
         }else {
             this.setState({
                 error: 'field cannot be empty'
@@ -71,21 +56,27 @@ class AddTask extends React.Component {
     }
 
     render() {
+        const form = (
+            <form>
+                <input id="taskname" className="add-task-input" type="text" name="taskName" onChange={this.onChangeHandler} placeholder="Add an Idea"></input>
+                <label className="error">{this.state.error}</label>
+                <button onClick={this.addTaskHandler} className="add-task-button">ADD</button>
+            </form>
+        )
+
         return (
             <div>
-                <form>
-                    <input id="taskname" className="add-task-input" type="text" name="taskName" onChange={this.onChangeHandler} placeholder="Add Todo"></input>
-                    <label className="error">{this.state.error}</label>
-                    <button onClick={this.addTaskHandler} className="add-task-button">ADD</button>
-                </form>
-
-                {}
-
-                <ShowTasks getDateTime={getDateTime()}
-                            allTasks={this.state.allTasks}/>
+                <NavBar/>
+                 {this.props.loggedInUser ? form : <LoginAlert/>}
+                {/* <LoginAlert/> */}
             </div>
         )
     }
 }
 
-export default AddTask;
+
+const mapStateToProps = state => ({
+    loggedInUser: state.user.loggedInUser
+})
+
+export default connect(mapStateToProps,{getAllTasks, createNewTask})(AddTask);

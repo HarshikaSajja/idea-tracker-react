@@ -5,13 +5,28 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Login from './components/Auth/Login/Login'
 import Register from './components/Auth/Register/Register'
-import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, withRouter, Redirect } from 'react-router-dom'
+import { Provider, connect } from 'react-redux';
+import { createStore, applyMiddleware  } from 'redux'
+import thunk from "redux-thunk";
+import rootReducer from './reducers'
+import AddTask from './components/addTask/addTask'
+import MyIdeas from './components/MyIdeas/myIdeas'
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 class Root extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={App} />
+        {console.log('user loggedin?',this.props.loggedInUser,this.props.isLoggedIn)}
+        {/* <Route exact path="/" render={() => (
+          (this.props.isLoggedIn) ? (<Route component={App}/>) : (<Route component={Login}/>) 
+        )} /> */}
+        <Redirect exact from="/" to="/home"/>
+        <Route exact path="/home" component={App} />
+        <Route path="/add" component={AddTask} />
+        <Route path="/my_ideas" component={MyIdeas} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
       </Switch>
@@ -19,15 +34,22 @@ class Root extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  loggedInUser: state.user.loggedInUser,
+  isLoggedIn: state.user.isLoggedIn
+})
+
+const RootWithAuth = withRouter(
+  connect(mapStateToProps)(Root)
+)
+
 ReactDOM.render(
-  <Router>
-    <Root/>
-  </Router>,
-    // <App />,
+  <Provider store={store}>
+    <Router>
+      <RootWithAuth/>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

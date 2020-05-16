@@ -1,9 +1,62 @@
 import React from 'react'
 import './Login.css'
 import registerLogo from '../../../assets/app_logo.png'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import axios from 'axios'
+import { connect } from 'react-redux';
+import { setLoggedInUser } from '../../../actions'
 
 class Login extends React.Component {
+    state = {
+        username: '',
+        password: '',
+        matchedUser: {},
+        authError: null
+    }
+
+    inputChangeHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    usernameValidator = () => {
+        if(this.state.username.length <= 1 || this.state.password.length <= 1) {
+            this.setState({authError: 'Fields connot be empty'})
+            return false
+        }else{
+            this.setState({
+                usernameError: null
+            })
+            return true
+        }
+    }
+
+    submitButtonHandler = (event) => {
+        event.preventDefault();
+        if(this.usernameValidator()) {
+            axios.get('http://localhost:8000/users')
+                .then(response => {
+                    const userFound = response.data.some(user => {
+                        this.setState({matchedUser: user})
+                        return user.username === this.state.username
+                    });
+                    if(userFound){
+                        if(this.state.matchedUser.password === this.state.password) {
+                            this.setState({authError: null})
+                            console.log('password matched')
+                            this.props.setLoggedInUser(this.state.username, true)
+                            this.props.history.push('/home')
+                        }else {
+                            this.setState({ authError: 'Incorrect password' })
+                        }
+                    }else {
+                        this.setState({ authError: 'Username does not exist' })
+                    }
+                })
+        }
+    }
+
     render() {
         return (
             <div>
@@ -13,20 +66,19 @@ class Login extends React.Component {
                 </div>
                 <div>
                 <form className="auth-form-container">
-                {/* <label>{this.state.emailError}</label> */}
-                    <input className="auth-input" type="email" 
-                            id="email" 
-                            placeholder="&#xF0e0;  Email Address"
-                            name="email"
-                            onChange={this.inputChangeHandler}></input>
+                    <input className="auth-input" type="text" 
+                            id="username" 
+                            placeholder="&#xF007;   Username"
+                            name="username"
+                            onChange={this.inputChangeHandler}
+                            required></input>
                     
-                    {/* <label>{this.state.passwordError}</label> */}
                     <input className="auth-input" type="password" 
                             id="password" 
                             placeholder="&#xF023;   Password"
                             name="password"
                             onChange={this.inputChangeHandler}></input>
-                    {/* <label>{this.state.authError}</label> */}
+                    <label className="error-label">{this.state.authError}</label>
                     <button className="auth-button" onClick={this.submitButtonHandler}>Submit</button>
                 </form>
                 </div>
@@ -38,4 +90,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default connect(null,{setLoggedInUser})(Login);

@@ -2,6 +2,9 @@ import React from 'react'
 import '../Login/Login.css'
 import registerLogo from '../../../assets/app_logo.png'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { connect } from 'react-redux';
+import { setLoggedInUser } from '../../../actions'
 
 class Register extends React.Component {
     state = {
@@ -13,6 +16,7 @@ class Register extends React.Component {
         emailError: null,
         passwordError: null,
         authError: null,
+        usernameExists: false
     }
 
     inputChangeHandler = (event) => {
@@ -66,8 +70,31 @@ class Register extends React.Component {
         }
     }
 
-    submitButtonHandler =(event) => {
-
+    submitButtonHandler = (event) => {
+        event.preventDefault();
+        if(this.isformvalid()) {
+            axios.get('http://localhost:8000/users')
+                .then(response => {
+                    const userFound = response.data.some(user => user.username === this.state.username);
+                    if(!userFound) {
+                        const body = {
+                            username: this.state.username,
+                            password: this.state.password,
+                            email: this.state.email
+                        }
+                        axios.post('http://localhost:8000/users', body)
+                            .then(response => {
+                                this.setState({authError:null})
+                                this.props.setLoggedInUser(this.state.username, true)
+                                this.props.history.push('/home')
+                            })
+                    }else {
+                        this.setState({
+                            authError: 'Username already exists'
+                        })
+                    }
+                })
+        }
     }
 
     render() {
@@ -79,32 +106,32 @@ class Register extends React.Component {
                 </div>
                 <div className="auth-form-container">
                 <form>
-                    <label>{this.state.usernameError}</label>
+                    <label className="error-label">{this.state.usernameError}</label>
                     <input className="auth-input" type="text" 
                             id="username" 
                             placeholder="&#xF007;   Username"
                             name="username"
                             onChange={this.inputChangeHandler}
                             required></input>
-                    <label>{this.state.emailError}</label>
+                    <label className="error-label">{this.state.emailError}</label>
                     <input className="auth-input" type="email" 
                             id="email" 
                             placeholder="&#xF0e0;  Email Address"
                             name="email"
                             onChange={this.inputChangeHandler}></input>
-                    <label>{this.state.passwordError}</label>
+                    <label className="error-label">{this.state.passwordError}</label>
                     <input className="auth-input" type="password" 
                             id="password" 
                             placeholder="&#xF023;   Password"
                             name="password"
                             onChange={this.inputChangeHandler}></input>
-                    <label>{this.state.passwordError}</label>
+                    <label className="error-label">{this.state.passwordError}</label>
                     <input className="auth-input" type="password" 
                             id="confirm_password" 
                             placeholder="&#xF058;  Confirm Password"
                             name="passwordConfirmation"
                             onChange={this.inputChangeHandler}></input>
-                    <label>{this.state.authError}</label>
+                    <label className="error-label">{this.state.authError}</label>
                     <button className="auth-button" onClick={this.submitButtonHandler}>Submit</button>
                 </form>
                 </div>
@@ -116,4 +143,4 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+export default connect(null,{setLoggedInUser})(Register);

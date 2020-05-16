@@ -7,7 +7,7 @@
 }
 
 .app-title {
-    color: white;
+    color: #890763;
     text-align: left;
     margin-left: 10px;
     font-size: 30px;
@@ -18,7 +18,7 @@
     float: right;
     font-size: 16px;
     background-color: #38787A;
-    color: white;
+    color: #890763;
     border: none;
     font-weight: bold;
     margin-right: 20px;
@@ -29,4 +29,9 @@
     background-color: rgba(93, 56, 122, 0.3);
     height: 100%;
     margin-top: 2px;
+}
+
+.active-button {
+    background-color: rgba(93, 56, 122, 0.3);
+    padding: 10px;
 }

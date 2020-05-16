@@ -1,11 +1,13 @@
 .task-item {
-    height: 70px;
+    /* height: 70px; */
+    height: auto;
     width: 100%;
     border: 1px #ccc solid;
     border-radius: 10px;
     margin-bottom: 3px;
     padding: 10px;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .edit-button {
@@ -16,18 +18,50 @@
     margin-right: 5px;
 }
 
-.delete-button {
+.likes {
     float: right;
-    padding: 5px 15px;
-    border-radius: 10px;
-    background-color: #86B7B9;
-    margin-right: 5px;
+    margin: auto 10px;
+    text-align: left;
+}
+
+.like-button {
+    cursor: pointer !important;
 }
 
 .timestamp {
     font-size: 13px;
 }
 
-.taskname {
+.author-name {
+    font-size: 15px;
+}
+
+.taskname,
+.collapse {
+    font-size: 16px;
     font-weight: bold;
+}
+
+.taskname::after {
+    margin-left: 5px;
+    content: '\f0d7';
+    font-family: FontAwesome;
+    color: #ccc;
+
+}
+
+.collapse::after {
+    margin-left: 5px;
+    content: '\f0da';
+    font-family: FontAwesome;
+    color: #ccc;
+
+}
+
+.likes-container {
+    float: right;
+    width: 80px;
+    padding: 5px;
+    margin: auto 20px;
+    margin-top: -35px;
 }
