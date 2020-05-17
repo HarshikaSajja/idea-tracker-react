@@ -12,6 +12,8 @@ const TASKNAME_ASC = 'taskname_asc';
 const TASKNAME_DESC  = 'taskname_desc';
 const RECENTLY_ADDED = 'recently_added';
 const OLDEST_FIRST = 'oldest_first';
+let totalIdeasCount = 0
+
 
 const getDateTime = () => {
     let today = new Date();
@@ -22,6 +24,7 @@ const getDateTime = () => {
 }  
 
 class ShowTasks extends React.Component {
+    
     state = {
         modal: false,
         taskName: '',
@@ -37,8 +40,10 @@ class ShowTasks extends React.Component {
         sort: '',
         order: '',
         page: 0,
-        limit: 0,
+        limit: 9999,
         currentPage: 1,
+        totalPages: 1,
+        pageNoClicked: false
     }
 
     toggleExpandable = (taskId) => {
@@ -106,46 +111,81 @@ class ShowTasks extends React.Component {
     filtersHandler = () => {
         const sortBy = this.refs.sortBy.value
         const ideasPerPage = this.refs.limit.value
-        console.log(`currentpage=${this.state.currentPage}, ideasPerPage=${ideasPerPage}`)
+        // console.log('page clicked??: ',this.state.pageNoClicked)
+        if(!this.state.pageNoClicked){
+            this.setState({ currentPage: 1})
+        }
         if(sortBy === DEFAULT){
             this.setState({
                 sort: '',
                 order: '',
-                limit: ideasPerPage
-            }, () => this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit))  
+                limit: ideasPerPage,
+                pageNoClicked: false
+            }, () => {
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.calculatePageNumbers()
+            })  
         }else if(sortBy === TASKNAME_ASC) {
             this.setState({
                 sort: 'taskName',
                 order: 'asc',
-                limit: ideasPerPage
-            }, () => this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit))            
+                limit: ideasPerPage,
+                pageNoClicked: false
+            }, () => {
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.calculatePageNumbers()
+            })            
         }else if(sortBy === TASKNAME_DESC) {
             this.setState({
                 sort: 'taskName',
                 order: 'desc',
-                limit: ideasPerPage
-            }, () => this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit))
+                limit: ideasPerPage,
+                pageNoClicked: false
+            }, () => {
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.calculatePageNumbers()
+            })
         }else if(sortBy === RECENTLY_ADDED) {
             this.setState({
                 sort: 'timeStamp',
                 order: 'desc',
-                limit: ideasPerPage
-            }, () => this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit))
+                limit: ideasPerPage,
+                pageNoClicked: false
+            }, () => {
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.calculatePageNumbers()
+            })
         }else if(sortBy === OLDEST_FIRST) {
             this.setState({
                 sort: 'timeStamp',
                 order: 'asc',
-                limit: ideasPerPage
-            }, () => this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit))
+                limit: ideasPerPage,
+                pageNoClicked: false
+            }, () => {
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.calculatePageNumbers()
+            })
         }
     }
 
     onPageClicked = (e) => {
-        console.log()
-        this.setState({ currentPage: e.target.value}, () => this.filtersHandler())
+        this.setState({ currentPage: parseInt(e.target.value), pageNoClicked: true}, () => this.filtersHandler())
+    }
+
+    calculatePageNumbers = () => {
+        if(this.props.totalIdeas > totalIdeasCount) {
+            totalIdeasCount = this.props.totalIdeas
+        }
+        let totalPages
+        let pages = this.state.limit==='9999' ? 1 : totalIdeasCount/this.state.limit
+        Number.isInteger(pages) ? totalPages = pages : totalPages = Math.ceil(pages)
+        this.setState({totalPages: totalPages})
     }
 
     render() {
+        // {[...Array(this.state.totalPages)].map((_, i) => {
+        //     console.log(`i+1==> ${(this.state.currentPage)} : ${i+1} : ${this.state.currentPage===i+1}`)
+        // })}
         const taskList = (
             <div className="task-list">
                 {
@@ -191,17 +231,19 @@ class ShowTasks extends React.Component {
                     </select>
 
                     <select ref="limit" onChange={this.filtersHandler} className="dropdown-boxes">
-                        <option value="0">Ideas per page</option>
-                        <option value="2">2</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
+                        <option value="9999">All ideas</option>
+                        <option value="2">2 per page</option>
+                        <option value="5">5 per page</option>
+                        <option value="10">10 per page</option>
                     </select>
+
+                    
                 </div>
                 {this.props.loading ? <LoadingSpinner/> : taskList}
-                <div className="task-nav" style={{backgroundColor: 'white'}}>
-                    <button className="active-page" value="1" onClick={this.onPageClicked}>1</button>
-                    <button className="page-numbers" value="2" onClick={this.onPageClicked}>2</button>
-                    <button className="page-numbers" value="3" onClick={this.onPageClicked}>3</button>
+                <div className="task-nav" style={{backgroundColor: 'white', textAlign:'center'}}>
+                    {[...Array(this.state.totalPages)].map((_, i) => (
+                        <button key={i+1} className={this.state.currentPage===i+1 ? "active-page" : "page-numbers"} value={i+1} onClick={this.onPageClicked}>{i+1}</button>
+                    ))}
                 </div>
             </div>
         )
@@ -211,7 +253,8 @@ class ShowTasks extends React.Component {
 const mapStateToProps = state => ({
     loggedInUser: state.user.loggedInUser,
     allTasks: state.tasks.allTasks,
-    loading: state.tasks.loading
+    loading: state.tasks.loading,
+    totalIdeas: state.tasks.totalIdeas
 })
 
 export default connect(mapStateToProps,{editTask, deleteTask, searchIdea, incLikes, getSortedTasks, getAllTasks})(ShowTasks);

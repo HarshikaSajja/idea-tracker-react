@@ -15,16 +15,12 @@
     background-color: #DFF0F0;
     background-color: #86B7B9;
     height: 15%;
-    margin: 5px auto;
     border-radius: 8px;
     padding: 10px 20px;
     box-sizing: border-box;
-    justify-content: space-evenly;
 }
 
 .task-list {
-    /* overflow-y: scroll; */
-    /* height: 270px; */
     height: auto;
 }
 
@@ -48,14 +44,28 @@
     margin-right: 2%;
 }
 
-.page-numbers,
-.active-page {
-    margin-right: 10px;
+.page-numbers {
+    margin-right: 15px;
     padding: 5px;
-    
+    width: 30px;
+    border: 'none';
     border-radius: 15px;
 }
 
+.page-numbers:hover{
+    background-color: #86B7B9;
+    color: white;
+    font-weight: bold;
+    width: 40px;
+    border-radius: 20px;
+}
+
 .active-page {
-    background-color: hotpink;
+    background-color: #86B7B9;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    width: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
 }

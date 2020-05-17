@@ -34,6 +34,4 @@ render(){
 }
 }
 
-
-
 export default connect(null, { getAllTasks })(App);
