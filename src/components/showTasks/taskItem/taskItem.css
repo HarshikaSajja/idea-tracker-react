@@ -16,6 +16,8 @@
     border-radius: 10px;
     background-color: #86B7B9;
     margin-right: 5px;
+    margin-top: -2px;
+    color: white;
 }
 
 .likes {

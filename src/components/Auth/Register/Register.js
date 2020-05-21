@@ -88,6 +88,7 @@ class Register extends React.Component {
                                 this.props.setLoggedInUser(this.state.username, true)
                                 this.props.history.push('/home')
                             })
+                        
                     }else {
                         this.setState({
                             authError: 'Username already exists'

@@ -1,0 +1,17 @@
+.activity {
+    padding: 8% 10px;
+    margin-top: 7%;
+    border-left: 10px solid #38787A;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, rgba(93, 56, 122, 0.1) 50%, #38787A 50%);
+    transition: background-position 0.3s;
+    font-size: 17px;
+}
+
+.activity:hover {
+    background-position: -95% 0;
+    color: white;
+    font-weight: bold;
+}

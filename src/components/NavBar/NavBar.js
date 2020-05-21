@@ -2,15 +2,15 @@ import React from 'react'
 import './NavBar.css'
 import Logo from '../../assets/app_logo.png'
 import { connect } from 'react-redux';
-import { setLoggedInUser } from '../../actions'
+import { setLoggedInUser,clearLikedIdeas } from '../../actions'
 import { Redirect, NavLink, withRouter } from "react-router-dom";
 
 class NavBar extends React.Component {
     logoutHandler = () => {
         this.props.setLoggedInUser('', false)
+        this.props.clearLikedIdeas()
         this.props.history.push('/login')
     }
-
 
     render() {
         
@@ -21,7 +21,9 @@ class NavBar extends React.Component {
                 <button onClick={this.logoutHandler} className="navbar-buttons">
                 {this.props.loggedin ? 'Logout' : 'Login'} 
                 </button>
-                <button hidden={!this.props.loggedin} className="navbar-buttons">
+                <button 
+                hidden={!this.props.loggedin} 
+                className="navbar-buttons">
                     <NavLink to="/my_ideas" activeClassName="active-button" style={{ textDecoration: 'none', color:'#890763' }}>My Ideas</NavLink>
                 </button>
                 <button className="navbar-buttons">
@@ -39,4 +41,4 @@ const mapStateToProps = state => ({
     loggedin: state.user.isLoggedIn
 })
 
-export default withRouter(connect(mapStateToProps,{setLoggedInUser})(NavBar));
+export default withRouter(connect(mapStateToProps,{setLoggedInUser,clearLikedIdeas})(NavBar));

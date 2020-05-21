@@ -20,11 +20,13 @@ class AddTask extends React.Component {
         error: '',
         updatedPostData: [],
         allTasks: [],
+        description: ''
     }
 
     onChangeHandler = (event) => {
         const dateTime = getDateTime()
         this.setState({
+            error: '',
             [event.target.name]: event.target.value,
             timeStamp: dateTime
         })
@@ -32,25 +34,28 @@ class AddTask extends React.Component {
     }
 
     isFieldValid = () => {
-        return (this.state.taskName !== '') ? true : false
+        return (this.state.taskName !== '' && this.state.description !== '') ? true : false
     }
 
     addTaskHandler = (event) => {
         event.preventDefault();
-        document.getElementById("taskname").value = "";
+        // document.getElementById("taskname").value = "";
+        // document.getElementById("description").value = "";
 
         if(this.isFieldValid()) {
             const body = {
                 taskName: this.state.taskName,
                 timeStamp: this.state.timeStamp,
                 likes: 0,
-                createdBy: this.props.loggedInUser
+                createdBy: this.props.loggedInUser,
+                description: this.state.description,
+                status: 'Not Started'
             }
             this.props.createNewTask(body)
                 .then(() => this.props.history.push('/home'))
         }else {
             this.setState({
-                error: 'field cannot be empty'
+                error: 'fields cannot be empty'
             })
         }
     }
@@ -58,7 +63,8 @@ class AddTask extends React.Component {
     render() {
         const form = (
             <form>
-                <input id="taskname" className="add-task-input" type="text" name="taskName" onChange={this.onChangeHandler} placeholder="Add an Idea"></input>
+                <input id="taskname" className="add-task-input" type="text" name="taskName" onChange={this.onChangeHandler} placeholder="Add your Idea"></input>
+                <textarea id="description" className="add-task-input" name="description" value={this.state.description} onChange={this.onChangeHandler} placeholder="Idea description" rows="10" cols="50"/>
                 <label className="error">{this.state.error}</label>
                 <button onClick={this.addTaskHandler} className="add-task-button">ADD</button>
             </form>
@@ -67,8 +73,7 @@ class AddTask extends React.Component {
         return (
             <div>
                 <NavBar/>
-                 {this.props.loggedInUser ? form : <LoginAlert/>}
-                {/* <LoginAlert/> */}
+                {this.props.loggedInUser ? form : <LoginAlert/>}
             </div>
         )
     }

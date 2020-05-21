@@ -27,7 +27,9 @@ render(){
     <div>
         <NavBar/>
         {/* <AddTask/> */}
-        <ShowTasks editDeleteDisable={true}/>
+        <ShowTasks editDeleteDisable={true}
+                    hideRange={false}
+                    from={'home'}/>
         {/* <Footer/> */}
     </div>
   );

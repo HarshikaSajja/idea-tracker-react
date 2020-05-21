@@ -2,10 +2,16 @@ import React from 'react'
 import './showTasks.css'
 import TaskItem from './taskItem/taskItem'
 import Modal from '../Modal/Modal'
+import UserDashboard from '../UserDashboard/UserDashboard'
+import App from '../../App'
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 import { connect } from 'react-redux';
-import { editTask, deleteTask, searchIdea, incLikes, getSortedTasks, getAllTasks } from '../../actions'
+import { editTask, deleteTask, searchIdea, incLikes, getSortedTasks, getAllTasks, getIdeasInRange, setLikedIdeas } from '../../actions'
 import axios from 'axios'
+import { Redirect, Link } from 'react-router-dom'
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import 'bootstrap-daterangepicker/daterangepicker.css';
+import { compose } from 'redux'
 
 const DEFAULT = 'default';
 const TASKNAME_ASC = 'taskname_asc';
@@ -43,7 +49,13 @@ class ShowTasks extends React.Component {
         limit: 9999,
         currentPage: 1,
         totalPages: 1,
-        pageNoClicked: false
+        pageNoClicked: false,
+        dateRange: null,
+        description: '',
+        from: this.props.from,
+        status: '',
+        action: ''
+        
     }
 
     toggleExpandable = (taskId) => {
@@ -57,50 +69,70 @@ class ShowTasks extends React.Component {
         })
     }
 
-    onEditHandler = (taskId, taskName, likes) => {
+    onEditHandler = ({id, taskName, likes, description, status}, action) => {
         this.setState({
             modal: true,
             taskName: taskName,
-            editTaskId: taskId,
-            likes: likes
+            editTaskId: id,
+            likes: likes,
+            description: description,
+            status: status,
+            action: action
         })
     }
 
-    onSaveHandler = (taskname) => {
+    onSaveHandler = (taskname, updatedStatus) => {
+        (updatedStatus === '') ? updatedStatus = this.state.action : updatedStatus=updatedStatus;
+        (taskname === '') ? taskname = this.state.taskName : taskname=taskname
         const body = {
             taskName: taskname,
             timeStamp: getDateTime(),
             likes: this.state.likes,
-            createdBy: this.props.loggedInUser
+            createdBy: this.props.loggedInUser,
+            description: this.state.description,
+            status: updatedStatus
         }
         this.props.editTask(this.state.editTaskId, body)
             .then(() => {
                 this.setState({ modal: false })
             })
+            .then(() => {
+                this.props.history.push('/home')
+                    this.props.history.push('/my_ideas')
+            })
     }
 
     onDeleteHandler = (taskId) => {
         this.props.deleteTask(taskId, this.props.loggedInUser)
+            .then(() => {
+                if(this.state.from === 'myIdeas'){
+                    this.props.history.push('/home')
+                    this.props.history.push('/my_ideas')
+                }
+            })
     }
 
     onChangeHandler = (event) => {
         this.setState({
             [event.target.name]: event.target.value
-        }, () => this.props.searchIdea(this.state.searchTerm))
+        }, () => this.props.searchIdea(this.state.searchTerm, this.state.from, this.props.loggedInUser))
         
     }
 
-    likesHandler = ({id, taskName, timeStamp, likes, createdBy}) => {
+    likesHandler = ({id, taskName, timeStamp, likes, createdBy, description, status}) => {
         const body = {
             taskName: taskName,
             timeStamp: timeStamp,
             likes: likes+1,
-            createdBy: createdBy
+            createdBy: createdBy,
+            description: description,
+            status: status
         }
         this.props.incLikes(id, body, this.state.sort, this.state.order, this.state.currentPage, this.state.limit)
             .then(() => {
                 const ids = this.state.likedIds
                 ids.push(id)
+                this.props.setLikedIdeas(ids)
                 this.setState({
                     likedIds: ids,
                     liked: true
@@ -111,7 +143,6 @@ class ShowTasks extends React.Component {
     filtersHandler = () => {
         const sortBy = this.refs.sortBy.value
         const ideasPerPage = this.refs.limit.value
-        // console.log('page clicked??: ',this.state.pageNoClicked)
         if(!this.state.pageNoClicked){
             this.setState({ currentPage: 1})
         }
@@ -122,7 +153,7 @@ class ShowTasks extends React.Component {
                 limit: ideasPerPage,
                 pageNoClicked: false
             }, () => {
-                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit, this.state.from, this.props.loggedInUser)
                 this.calculatePageNumbers()
             })  
         }else if(sortBy === TASKNAME_ASC) {
@@ -132,7 +163,7 @@ class ShowTasks extends React.Component {
                 limit: ideasPerPage,
                 pageNoClicked: false
             }, () => {
-                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit, this.state.from, this.props.loggedInUser)
                 this.calculatePageNumbers()
             })            
         }else if(sortBy === TASKNAME_DESC) {
@@ -142,7 +173,7 @@ class ShowTasks extends React.Component {
                 limit: ideasPerPage,
                 pageNoClicked: false
             }, () => {
-                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit, this.state.from, this.props.loggedInUser)
                 this.calculatePageNumbers()
             })
         }else if(sortBy === RECENTLY_ADDED) {
@@ -152,7 +183,7 @@ class ShowTasks extends React.Component {
                 limit: ideasPerPage,
                 pageNoClicked: false
             }, () => {
-                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit, this.state.from, this.props.loggedInUser)
                 this.calculatePageNumbers()
             })
         }else if(sortBy === OLDEST_FIRST) {
@@ -162,7 +193,7 @@ class ShowTasks extends React.Component {
                 limit: ideasPerPage,
                 pageNoClicked: false
             }, () => {
-                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit)
+                this.props.getSortedTasks(this.state.sort,this.state.order, this.state.currentPage, this.state.limit, this.state.from, this.props.loggedInUser)
                 this.calculatePageNumbers()
             })
         }
@@ -182,32 +213,44 @@ class ShowTasks extends React.Component {
         this.setState({totalPages: totalPages})
     }
 
+    handleDateEvent = (event, picker) => {
+        this.props.getIdeasInRange(picker.startDate.format('DD/MM/YYYY'), picker.endDate.format('DD/MM/YYYY'), this.props.isLoggedIn, this.props.loggedInUser)
+            .then(() => this.setState({dateRange: `${picker.startDate.format('DD/MM/YYYY')} - ${picker.endDate.format('DD/MM/YYYY')}`}))
+    }
+
+    resetCalendar = () => {
+        this.props.getAllTasks()
+            .then(() => this.setState({dateRange: 'Select Date Range'}))
+    }
+
     render() {
-        // {[...Array(this.state.totalPages)].map((_, i) => {
-        //     console.log(`i+1==> ${(this.state.currentPage)} : ${i+1} : ${this.state.currentPage===i+1}`)
-        // })}
         const taskList = (
             <div className="task-list">
+                {console.log('@@@@@',this.props)}
                 {
                 (this.props.allTasks.length > 0) ? 
                 this.props.allTasks.map(task => <TaskItem   key={task.id}
                                                             taskName={task.taskName}
+                                                            desc={task.description}
+                                                            status={task.status}
                                                             author={task.createdBy}
                                                             toggle={() => this.toggleExpandable(task.id)}
                                                             expandable={this.state.expandId === task.id ? this.state.expandable : true}
                                                             likesCount={task.likes}
-                                                            liked={(this.state.likedIds.includes(task.id) ? true : false)}
+                                                            liked={this.props.ids.includes(task.id) ? true : false}
+                                                            // liked={(this.state.likedIds.includes(task.id) ? true : false)}
                                                             likeClicked={() => this.likesHandler(task)}
                                                             editDeleteDisable={this.props.editDeleteDisable}
                                                             timeStamp={task.timeStamp}
-                                                            onEdit={() => this.onEditHandler(task.id, task.taskName, task.likes)} 
+                                                            onEdit={(action) => this.onEditHandler(task,action)} 
                                                             onDelete={() => this.onDeleteHandler(task.id)}/>) : 
                 <p style={{marginLeft:'20px'}}>No Ideas Found</p>
                 }
-
                     <Modal
+                        invoke={this.state.action}
                         modal={this.state.modal}
                         taskName={this.state.taskName}
+                        currentStatus={this.state.status}
                         onSaveHandler = {this.onSaveHandler}
                         closeModal={this.closeModal}/>
                 </div>
@@ -237,9 +280,21 @@ class ShowTasks extends React.Component {
                         <option value="10">10 per page</option>
                     </select>
 
-                    
+                    <DateRangePicker
+                        onCancel={this.resetCalendar}
+                        onApply={this.handleDateEvent}>
+                        <button 
+                            hidden={this.props.hideRange}
+                            style={{height:'30px', borderRadius:'5px',border:'1px white solid',backgroundColor:'white',marginLeft:'3px'}}>
+                            {this.state.dateRange ? this.state.dateRange : 'Select Date Range'}
+                            &nbsp;<i className="fa fa-calendar"></i>
+                        </button>
+                    </DateRangePicker>
                 </div>
+
                 {this.props.loading ? <LoadingSpinner/> : taskList}
+                
+
                 <div className="task-nav" style={{backgroundColor: 'white', textAlign:'center'}}>
                     {[...Array(this.state.totalPages)].map((_, i) => (
                         <button key={i+1} className={this.state.currentPage===i+1 ? "active-page" : "page-numbers"} value={i+1} onClick={this.onPageClicked}>{i+1}</button>
@@ -254,7 +309,9 @@ const mapStateToProps = state => ({
     loggedInUser: state.user.loggedInUser,
     allTasks: state.tasks.allTasks,
     loading: state.tasks.loading,
-    totalIdeas: state.tasks.totalIdeas
+    totalIdeas: state.tasks.totalIdeas,
+    isLoggedIn: state.user.isLoggedIn,
+    ids: state.tasks.ids
 })
 
-export default connect(mapStateToProps,{editTask, deleteTask, searchIdea, incLikes, getSortedTasks, getAllTasks})(ShowTasks);
+export default connect(mapStateToProps,{editTask,setLikedIdeas, deleteTask, searchIdea, incLikes, getSortedTasks, getAllTasks, getIdeasInRange})(ShowTasks);
