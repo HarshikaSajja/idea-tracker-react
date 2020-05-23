@@ -98,7 +98,7 @@ class ShowTasks extends React.Component {
             })
             .then(() => {
                 this.props.history.push('/home')
-                    this.props.history.push('/my_ideas')
+                this.props.history.push('/my_ideas')
             })
     }
 

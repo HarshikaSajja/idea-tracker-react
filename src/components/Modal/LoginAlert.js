@@ -37,18 +37,18 @@ class LoginAlert extends React.Component{
                 onClose={this.onClose}>
 
                 <DialogTitle id="alert-dialog-slide-title">{"Looks like you are not logged In"}</DialogTitle>
-                <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                    Please Login to add your ideas.
-                </DialogContentText>
-                </DialogContent>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            Please Login to add your ideas.
+                        </DialogContentText>
+                    </DialogContent>
                 <DialogActions>
-                <Button color="primary">
-                    <NavLink to="/login" style={{textDecoration:'none'}}>Login / Register</NavLink>
-                </Button>
-                <Button onClick={this.onClose} color="primary">
-                    Go Back
-                </Button>
+                    <Button color="primary">
+                        <NavLink to="/login" style={{textDecoration:'none'}}>Login / Register</NavLink>
+                    </Button>
+                    <Button onClick={this.onClose} color="primary">
+                        Go Back
+                    </Button>
                 </DialogActions>
             </Dialog>
             </div>

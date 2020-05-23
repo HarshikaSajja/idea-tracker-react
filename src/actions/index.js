@@ -20,7 +20,7 @@ export const setLikedIdeas = (ids) => {
     }
 }
 
-export const clearLikedIdeas = () => {
+export const clearDataOnLogout = () => {
     return {
         type: CLEAR_LIKED_IDEAS
     }

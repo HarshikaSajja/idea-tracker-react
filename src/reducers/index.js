@@ -1,4 +1,4 @@
-import { SET_LOGIN_USER, GET_ALL_TASKS, SET_LIKED_IDEAS, CLEAR_LIKED_IDEAS, SET_USER_LIKES } from '../actions'
+import { SET_LOGIN_USER, GET_ALL_TASKS, SET_LIKED_IDEAS, CLEAR_LIKED_IDEAS } from '../actions'
 import { combineReducers } from 'redux'
 
 const initialUser = {
@@ -40,6 +40,10 @@ const tasks = (state = initialTaskList, action) => {
             return {
                 ...state,
                 ids: action.likedIds
+            }
+        case CLEAR_LIKED_IDEAS:
+            return {
+                ...initialTaskList
             }
         default:
             return state;

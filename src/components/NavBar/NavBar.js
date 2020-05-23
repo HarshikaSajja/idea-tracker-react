@@ -2,13 +2,13 @@ import React from 'react'
 import './NavBar.css'
 import Logo from '../../assets/app_logo.png'
 import { connect } from 'react-redux';
-import { setLoggedInUser,clearLikedIdeas } from '../../actions'
+import { setLoggedInUser,clearDataOnLogout } from '../../actions'
 import { Redirect, NavLink, withRouter } from "react-router-dom";
 
 class NavBar extends React.Component {
     logoutHandler = () => {
         this.props.setLoggedInUser('', false)
-        this.props.clearLikedIdeas()
+        this.props.clearDataOnLogout()
         this.props.history.push('/login')
     }
 
@@ -41,4 +41,4 @@ const mapStateToProps = state => ({
     loggedin: state.user.isLoggedIn
 })
 
-export default withRouter(connect(mapStateToProps,{setLoggedInUser,clearLikedIdeas})(NavBar));
+export default withRouter(connect(mapStateToProps,{setLoggedInUser,clearDataOnLogout})(NavBar));

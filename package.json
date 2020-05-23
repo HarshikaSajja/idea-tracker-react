@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "bootstrap-daterangepicker": "^3.0.5",
     "jquery": "^3.5.1",
+    "json-server": "^0.16.1",
     "moment": "^2.25.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -22,6 +23,7 @@
     "react-scripts": "3.4.1",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "rsuite": "^4.6.0"
   },
@@ -29,7 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "db" : "json-server --watch db.json --port 8000"
   },
   "eslintConfig": {
     "extends": "react-app"
