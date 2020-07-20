@@ -1,25 +1,25 @@
 {
   "tasks": [
     {
-      "taskName": "drink water",
+      "taskName": "idea1",
       "timeStamp": "11/5/2020  16:23",
       "likes": 16,
-      "createdBy": "sajja",
+      "createdBy": "xyz",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "In Progress",
       "id": 2
     },
     {
-      "taskName": "message dad",
+      "taskName": "idea2",
       "timeStamp": "07/5/2020  15:36",
-      "likes": 67,
-      "createdBy": "sajja",
+      "likes": 81,
+      "createdBy": "xyz",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Completed",
       "id": 3
     },
     {
-      "taskName": "water the plants",
+      "taskName": "idea3",
       "timeStamp": "18/5/2020  23:37",
       "likes": 14,
       "createdBy": "harshika",
@@ -28,25 +28,25 @@
       "id": 4
     },
     {
-      "taskName": "call mom",
+      "taskName": "idea4",
       "timeStamp": "01/5/2020  15:36",
       "likes": 12,
-      "createdBy": "sajja",
+      "createdBy": "xyz",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Not Started",
       "id": 5
     },
     {
-      "taskName": "pagination",
+      "taskName": "idea5",
       "timeStamp": "16/5/2020  15:14",
-      "likes": 15,
-      "createdBy": "navin",
+      "likes": 16,
+      "createdBy": "abc",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Not Started",
       "id": 6
     },
     {
-      "taskName": "sort by",
+      "taskName": "idea6",
       "timeStamp": "14/5/2020  15:12",
       "likes": 0,
       "createdBy": "harshika",
@@ -55,46 +55,46 @@
       "id": 7
     },
     {
-      "taskName": "make tea",
+      "taskName": "idea7",
       "timeStamp": "14/5/2020  15:12",
-      "likes": 6,
-      "createdBy": "sajja",
+      "likes": 7,
+      "createdBy": "xyz",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Completed",
       "id": 8
     },
     {
-      "taskName": "buy coffee",
+      "taskName": "idea8",
       "timeStamp": "14/5/2020  19:10",
       "likes": 11,
-      "createdBy": "navin",
+      "createdBy": "abc",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Not Started",
       "id": 9
     },
     {
-      "taskName": "pagination successful",
-      "timeStamp": "23/5/2020  15:14",
-      "likes": 0,
+      "taskName": "idea9",
+      "timeStamp": "20/7/2020  13:38",
+      "likes": 1,
       "createdBy": "harshika",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Not Started",
       "id": 11
     },
     {
-      "taskName": "recharge",
+      "taskName": "idea10",
       "timeStamp": "16/5/2020  0:38",
-      "likes": 0,
-      "createdBy": "navin",
+      "likes": 3,
+      "createdBy": "abc",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Not Started",
       "id": 12
     },
     {
-      "taskName": "spotify playlist",
+      "taskName": "idea11",
       "timeStamp": "17/5/2020  16:57",
       "likes": 0,
-      "createdBy": "sajja",
+      "createdBy": "xyz",
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
       "status": "Not Started",
       "id": 13
@@ -108,14 +108,14 @@
       "id": 1
     },
     {
-      "username": "navin",
-      "password": "navin",
+      "username": "abc",
+      "password": "abc",
       "email": "harshikasajja@gmail.com",
       "id": 2
     },
     {
-      "username": "sajja",
-      "password": "harshika",
+      "username": "xyz",
+      "password": "xyz",
       "email": "harshikasajja@gmail.com",
       "id": 3
     }
