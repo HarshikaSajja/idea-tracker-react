@@ -45,8 +45,9 @@ class UserDashboard extends Component {
     render() {
         return (
             <div className="dashboard-container">
-                <div className="dashboard-items" id="statistics" style={{width:'65%',float:'left'}}>
+                <div className="dashboard-items" id="statistics">
                 <label className="your-activity">Progress</label>
+                <div className="progress-container">
                     {this.state.allStats.map(obj => (
                         <ProgressTracker    key={obj.name}
                                             denominator={this.props.totalCount}
@@ -55,7 +56,8 @@ class UserDashboard extends Component {
                                             color={obj.color}/>
                     ))}
                 </div>
-                <div className="dashboard-items" id="avg-likes" style={{width:'29%',float:'right'}}>
+                </div>
+                <div className="dashboard-items" id="avg-likes">
                     <label className="your-activity">Your Activity</label>
                     <YourActivity   numerator={this.props.totalCount}/>
                 </div>

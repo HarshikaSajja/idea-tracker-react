@@ -18,9 +18,11 @@ const TaskItem = ({ taskName, timeStamp, onEdit, onDelete, editDeleteDisable, li
                 <label className={expandable ? 'taskname' : 'collapse'}> {taskName} </label> 
                 <br/> 
                 <span className="author-name">Added by- {author}</span>
-                <button hidden={editDeleteDisable} onClick={onDelete} className="edit-button">DELETE</button>
-                <button hidden={editDeleteDisable} onClick={() => onEdit('editText')} className="edit-button">EDIT</button>
-                <button hidden={editDeleteDisable} onClick={() => onEdit('radioButtons')} className="edit-button">CHANGE STATUS</button>
+                <div className={editDeleteDisable ? "" : "actions-container"}>
+                <button hidden={editDeleteDisable} onClick={onDelete} className="action-button">DELETE</button>
+                <button hidden={editDeleteDisable} onClick={() => onEdit('editText')} className="action-button">EDIT</button>
+                <button hidden={editDeleteDisable} onClick={() => onEdit('radioButtons')} className="action-button">CHANGE STATUS</button>
+                </div>
             </div>
 
             <div className="likes-container">

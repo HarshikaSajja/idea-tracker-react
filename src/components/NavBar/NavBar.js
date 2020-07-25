@@ -16,8 +16,11 @@ class NavBar extends React.Component {
         
         return (
             <div className="navbar">
+                <div>
                 <img src={Logo} alt="App_logo" height="30px" width="40px"></img>
                 <label className="app-title">Idea Tracker</label>
+                </div>
+                <div>
                 <button onClick={this.logoutHandler} className="navbar-buttons">
                 {this.props.loggedin ? 'Logout' : 'Login'} 
                 </button>
@@ -32,6 +35,7 @@ class NavBar extends React.Component {
                 <button className="navbar-buttons">
                     <NavLink exact to="/home" activeClassName="active-button" style={{ textDecoration: 'none', color:'#890763' }}>Home</NavLink>
                 </button>
+                </div>
             </div>
         )
     }

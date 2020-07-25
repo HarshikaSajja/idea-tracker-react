@@ -6,7 +6,7 @@ class ProgressTracker extends Component {
     render() {
 
         return (
-            <div className="progress-container">
+            <div>
                 <PieChart className="progress-bar" width={150} height={150}>
                     <text x={59} y={80} className="status-title" style={{fontWeight:'bold'}}>
                         {`${Math.round((this.props.numerator/this.props.denominator)*100)}%`}
@@ -26,7 +26,7 @@ class ProgressTracker extends Component {
                     </Pie>
                 </PieChart>
                 <label className="status-title">{this.props.name}</label>
-                <i className="fa fa-square" style={{color:this.props.color}}></i>
+                <i className="fa fa-square square" style={{color:this.props.color}}></i>
             </div>
         )
     }

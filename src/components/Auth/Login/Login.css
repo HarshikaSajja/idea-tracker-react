@@ -69,3 +69,13 @@
     font-size: 12px;
     font-weight: bold;
 }
+
+@media screen and (max-width:620px) {
+    .auth-form-container {
+        width: 75%;
+    }
+
+    .switch-form-div {
+        width: 75%;
+    }
+}

@@ -1,20 +1,26 @@
-
 .progress-container {
-    /* border: 1px black solid; */
-    width: 30%;
-    height: 100%;
-    float: left;
-    margin: 0px 12px;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .progress-bar {
-    /* margin-top: 5%;
-    margin-left: 8%; */
     margin: 10% auto;
 }
 
 .status-title {
     display: block;
     font-size: 18px;
+    text-align: center;
+}
+
+.square {
+    display: block;
+    text-align: center;
+}
+
+@media screen and (max-width:620px) {
+    .progress-container {
+        flex-direction: column;
+    }
 }

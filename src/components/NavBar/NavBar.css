@@ -1,16 +1,20 @@
 .navbar {
-    width: 100vw;
-    height: 60px;
+    width: 100%;
+    height: auto;
     background-color: #38787A;
-    padding: 10px;
+    padding: 10px 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .app-title {
     color: #890763;
     text-align: left;
     margin-left: 10px;
-    font-size: 30px;
+    font-size: 40px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -22,13 +26,12 @@
     border: none;
     font-weight: bold;
     margin-right: 20px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    padding: 10px;
 }
 
 .navbar-buttons:hover {
     background-color: rgba(93, 56, 122, 0.3);
-    height: 100%;
-    margin-top: 2px;
 }
 
 .active-button {

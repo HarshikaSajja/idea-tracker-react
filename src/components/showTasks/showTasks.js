@@ -261,7 +261,7 @@ class ShowTasks extends React.Component {
                  <div className="task-nav">
                     <input className="search-box"
                             type="text" 
-                            placeholder="Search Idea/Author"
+                            placeholder="Search"
                             name="searchTerm"
                             onChange={this.onChangeHandler}>
                     </input>
@@ -284,8 +284,8 @@ class ShowTasks extends React.Component {
                         onCancel={this.resetCalendar}
                         onApply={this.handleDateEvent}>
                         <button 
-                            hidden={this.props.hideRange}
-                            style={{height:'30px', borderRadius:'5px',border:'1px white solid',backgroundColor:'white',marginLeft:'3px'}}>
+                            className="date-picker"
+                            hidden={this.props.hideRange}>
                             {this.state.dateRange ? this.state.dateRange : 'Select Date Range'}
                             &nbsp;<i className="fa fa-calendar"></i>
                         </button>
